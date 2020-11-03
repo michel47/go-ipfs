@@ -12,8 +12,8 @@ import (
 	"github.com/ipfs/go-filestore"
 	"github.com/ipfs/go-ipfs-blockstore"
 	"github.com/ipfs/go-ipfs-exchange-interface"
-	"github.com/ipfs/go-ipfs-exchange-offline"
 	"github.com/ipfs/go-ipfs-pinner"
+	"github.com/ipfs/go-ipfs-pinner/dspinner"
 	"github.com/ipfs/go-ipld-format"
 	"github.com/ipfs/go-merkledag"
 	"github.com/ipfs/go-mfs"
@@ -41,7 +41,6 @@ func BlockService(lc fx.Lifecycle, bs blockstore.Blockstore, rem exchange.Interf
 
 // Pinning creates new pinner which tells GC which blocks should be kept
 func Pinning(bstore blockstore.Blockstore, ds format.DAGService, repo repo.Repo) (pin.Pinner, error) {
-	internalDag := merkledag.NewDAGService(blockservice.New(bstore, offline.Exchange(bstore)))
 	rootDS := repo.Datastore()
 
 	syncFn := func() error {
@@ -51,15 +50,10 @@ func Pinning(bstore blockstore.Blockstore, ds format.DAGService, repo repo.Repo)
 		return rootDS.Sync(filestore.FilestorePrefix)
 	}
 	syncDs := &syncDagService{ds, syncFn}
-	syncInternalDag := &syncDagService{internalDag, syncFn}
 
-	pinning, err := pin.LoadPinner(rootDS, syncDs, syncInternalDag)
+	pinning, err := dspinner.LoadPinner(rootDS, syncDs)
 	if err != nil {
-		// TODO: we should move towards only running 'NewPinner' explicitly on
-		// node init instead of implicitly here as a result of the pinner keys
-		// not being found in the datastore.
-		// this is kinda sketchy and could cause data loss
-		pinning = pin.NewPinner(rootDS, syncDs, syncInternalDag)
+		return nil, err
 	}
 
 	return pinning, nil

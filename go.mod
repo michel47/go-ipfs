@@ -36,7 +36,7 @@ require (
 	github.com/ipfs/go-ipfs-exchange-interface v0.0.1
 	github.com/ipfs/go-ipfs-exchange-offline v0.0.1
 	github.com/ipfs/go-ipfs-files v0.0.8
-	github.com/ipfs/go-ipfs-pinner v0.0.4
+	github.com/ipfs/go-ipfs-pinner v0.0.5-0.20201029233447-cad837873ee6
 	github.com/ipfs/go-ipfs-posinfo v0.0.1
 	github.com/ipfs/go-ipfs-provider v0.4.3
 	github.com/ipfs/go-ipfs-routing v0.1.0
@@ -101,10 +101,10 @@ require (
 	github.com/whyrusleeping/multiaddr-filter v0.0.0-20160516205228-e903e4adabd7
 	github.com/whyrusleeping/tar-utils v0.0.0-20180509141711-8c6c8ba81d5c
 	go.uber.org/fx v1.13.1
-	go.uber.org/zap v1.15.0
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	go.uber.org/zap v1.16.0
+	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
-	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1
+	golang.org/x/sys v0.0.0-20201101102859-da207088b7d1
 	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
 )
 
