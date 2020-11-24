@@ -51,7 +51,7 @@ func Pinning(bstore blockstore.Blockstore, ds format.DAGService, repo repo.Repo)
 	}
 	syncDs := &syncDagService{ds, syncFn}
 
-	pinning, err := dspinner.LoadPinner(rootDS, syncDs)
+	pinning, err := dspinner.New(context.TODO(), rootDS, syncDs)
 	if err != nil {
 		return nil, err
 	}
