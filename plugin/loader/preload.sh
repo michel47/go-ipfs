@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+unset CDPATH
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 to_preload() {
